@@ -1,38 +1,337 @@
-.App {
-  text-align: center;
+/* Custom styles for the dashboard */
+.dashboard-container {
+  background: #f6f7f9;
+  padding: 24px;
+  min-height: calc(100vh - 80px);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.widget-card {
+  height: 100%;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.widget-card:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  transform: translateY(-2px);
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.metric-card {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 12px;
+  border-left: 3px solid #FF6B35;
+}
+
+.positive-change {
+  color: #48BB78;
+}
+
+.negative-change {
+  color: #F56565;
+}
+
+.neutral-change {
+  color: #718096;
+}
+
+.sidebar-icon {
+  transition: all 0.2s ease;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.sidebar-icon:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.active-icon {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-left: 3px solid white;
+}
+
+.tab-active {
+  border-bottom: 2px solid #FFD700;
+}
+
+.bar-chart-bar {
+  height: 8px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.bar-chart-bar:hover {
+  height: 12px;
+}
+
+/* Sidebar styles */
+.sidebar {
+  width: 4rem;
+  background-color: #FF6B35;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  padding: 1.5rem 0;
+  gap: 1.5rem;
 }
 
-.App-link {
-  color: #61dafb;
+/* Header styles */
+.header {
+  background: white;
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid #e5e7eb;
 }
 
-@keyframes App-logo-spin {
+.header h1 {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: #2D3748;
+  margin-bottom: 0.5rem;
+}
+
+.header .title-underline {
+  display: block;
+  width: 8rem;
+  height: 4px;
+  background-color: #FFD700;
+  margin-top: 0.25rem;
+}
+
+.header .subtitle {
+  color: #718096;
+  font-size: 0.875rem;
+}
+
+/* Main layout */
+.main-layout {
+  display: flex;
+  height: 100vh;
+  background-color: #f5f7fa;
+}
+
+.content-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Grid layouts */
+.dashboard-grid {
+  display: grid;
+  column-gap: 24px;
+  row-gap: 28px;
+  padding: 24px;
+  grid-template-areas:
+    "summary summary"
+    "map trends"
+    "topList changes";
+  grid-template-rows: auto minmax(360px, auto) minmax(380px, auto);
+}
+
+.dashboard-grid.full-width {
+  grid-template-columns: 1fr;
+}
+
+
+.widget-card {
+  height: 100%;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+  padding: 1.5rem;
+  margin-bottom: 2rem; 
+}
+
+.widget-card h2, .widget-card .container-name {
+  margin-bottom: 1rem;  
+  margin-top: 2rem;   
+}
+
+
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .dashboard-grid {
+  column-gap: 24px;
+  row-gap: 28px;
+    grid-template-columns: 1fr;
+    padding: 1rem;
+  }
+  
+  .widget-card {
+  height: 100%;
+    margin-bottom: 1rem;
+  }
+  
+  .grid-cols-3 {
+    grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: auto 360px 360px;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-layout {
+    flex-direction: column;
+  }
+  
+  .sidebar {
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    padding: 1rem;
+    justify-content: space-around;
+  }
+  
+  .sidebar-icon {
+    margin: 0 0.5rem;
+  }
+  
+  .grid-cols-3 {
+    grid-template-columns: 1fr;
+  }
+  
+  .header {
+    padding: 1rem;
+  }
+  
+  .header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .header .flex {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .metric-card {
+    padding: 0.75rem;
+  }
+  
+  .metric-card .text-2xl {
+    font-size: 1.25rem;
+  }
+  
+  .table {
+    font-size: 0.875rem;
+  }
+  
+  .chart-container {
+    height: 200px;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Animation improvements */
+@keyframes fadeInUp {
   from {
-    transform: rotate(0deg);
+    opacity: 0;
+    transform: translateY(30px);
   }
   to {
-    transform: rotate(360deg);
+    opacity: 1;
+    transform: translateY(0);
   }
 }
+
+.fade-in-up {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* Loading states */
+.loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin: -10px 0 0 -10px;
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #FF6B35;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Grid areas to match Figma layout */
+.area-summary { grid-area: summary; }
+.area-map { grid-area: map; }
+.area-trends { grid-area: trends; }
+.area-topList { grid-area: topList; }
+.area-changes { grid-area: changes; }
+
+.dashboard-grid {
+  column-gap: 24px;
+  row-gap: 28px;
+  grid-template-areas:
+    "summary summary"
+    "map trends"
+    "topList changes";
+}
+
+/* Targeted heights for visual parity */
+.summary-strip .metric-card { min-height: 84px; }
+.map-card { min-height: 340px; }
+.trends-card { min-height: 340px; }
+.toplist-card { min-height: 360px; }
+.changes-card { min-height: 360px; }
+
+
+/* Outer page frame like Figma */
+.page-frame {
+  background: #ffffff;
+  border: 1px solid #e3e8ee;
+  border-radius: 14px;
+  box-shadow: 0 1px 2px rgba(16,24,40,.06);
+  padding: 24px;
+}
+
+
+.dashboard-grid > * { height: 100%; }
+
+.fill-column{display:flex;flex-direction:column;height:100%;}
+.flex-1{flex:1;}
+
+.section-title{font-size:17px;font-weight:700;color:#2D3748;margin:18px 0 3px 8px;}
+
+.page-frame .section-title:first-child{margin-top:22px;}
